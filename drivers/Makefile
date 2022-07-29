@@ -6,6 +6,7 @@
 # a2uther.lib     : Apple ][ with Uthernet (default slot: #3)
 # a2lancegs.lib   : Apple ][ with LANceGS (default slot: #3)
 # a2uther2.lib    : Apple ][ with Uthernet II (default slot: #3)
+# a2dan2.lib      : Apple ][ with Dan II Controller (default slot: #7)
 # a2combo.lib     : Apple ][ with Uthernet or LANceGS or Uthernet II (default slot: #3)
 # atrdragon.lib   : ATARI 8-bit with Dragon Cart
 # atrdracarys.lib : ATARI 8-bit with Dracarys (default PBI device ID: #8)
@@ -27,9 +28,11 @@ DRIVERS=\
 	a2uther.lib \
 	a2lancegs.lib \
 	a2uther2.lib \
+	a2dan2.lib \
 	a2combo.lib \
 	ip65_apple2.lib \
 	ip65_apple2_uther2.lib \
+	ip65_apple2_dan2.lib \
 	atrdragon.lib \
 	atrdracarys.lib \
 	atrcombo.lib \
@@ -114,6 +117,10 @@ W5100OBJS=\
 	w5100driver.o \
 	ethernet.o
 
+DAN2OBJS=\
+	dan2driver.o \
+	ethernet.o
+
 rr-net.o uthernet.o dragoncart.o vic20-rr-net.o: cs8900a.s
 
 eth64.o lancegs.o: lan91c96.s
@@ -136,11 +143,15 @@ a2lancegs.lib: lancegs.o $(LAN91C96OBJS) a2init.o $(A2OBJS)
 
 a2uther2.lib: uthernet2.o $(W5100OBJS) a2init.o $(A2OBJS)
 
-a2combo.lib: uthernet.o lancegs.o uthernet2.o a2combo.o a2init.o $(A2OBJS)
+a2dan2.lib: dan2.o $(DAN2OBJS) a2init.o $(A2OBJS)
 
-ip65_apple2.lib: uthernet.o lancegs.o uthernet2.o a2combo.o a2init.o $(A2_OBJS)
+a2combo.lib: uthernet.o lancegs.o uthernet2.o dan2.o a2combo.o a2init.o $(A2OBJS)
+
+ip65_apple2.lib: uthernet.o lancegs.o uthernet2.o dan2.o a2combo.o a2init.o $(A2_OBJS)
 
 ip65_apple2_uther2.lib: uthernet2.o $(W5100OBJS) a2init.o $(A2_OBJS)
+
+ip65_apple2_dan2.lib: dan2.o $(DAN2OBJS) a2init.o $(A2_OBJS)
 
 atrdragon.lib: dragoncart.o $(CS8900AOBJS) atrinit.o $(ATROBJS)
 

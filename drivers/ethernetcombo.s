@@ -16,6 +16,9 @@
 .import _w5100
 .import _w5100_name
 
+.import _dan2d
+.import _dan2d_name
+
 .import _cs8900a
 .import _cs8900a_name
 
@@ -136,6 +139,15 @@ eth_init:
   ldax #_w5100
   jsr patch_wrapper
   ldax #_w5100_name
+  jsr set_name
+  jsr init_adaptor
+  bcc @done
+.endif
+
+.if .defined (__APPLE2__)
+  ldax #_dan2d
+  jsr patch_wrapper
+  ldax #_dan2d_name
   jsr set_name
   jsr init_adaptor
   bcc @done
