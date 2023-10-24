@@ -50,7 +50,6 @@ bin: wget65.bin
 
 wget65.bin: w5100.c w5100_http.c linenoise.c
 wget65.bin: IP65LIB = ../ip65/ip65.lib
-wget65.bin: A2_DRIVERLIB = ../drivers/ip65_apple2_uther2.lib
 
 date65.bin hfs65.bin tweet65.bin: CL65FLAGS = --start-addr 0x0C00 apple2enh-iobuf-0800.o
 
